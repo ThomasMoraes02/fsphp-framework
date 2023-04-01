@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cdbcfdc09a99bcff1ee35c1aafd30c51",
+    "content-hash": "78d64d307454bef089be4e600e2cf895",
     "packages": [
         {
             "name": "coffeecode/cropper",
@@ -165,6 +165,55 @@
             "time": "2021-03-21T17:57:29+00:00"
         },
         {
+            "name": "coffeecode/router",
+            "version": "1.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/robsonvleite/router.git",
+                "reference": "29f73e12351a116e9bbb3f695595777a09e18077"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/robsonvleite/router/zipball/29f73e12351a116e9bbb3f695595777a09e18077",
+                "reference": "29f73e12351a116e9bbb3f695595777a09e18077",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CoffeeCode\\Router\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Robson V. Leite",
+                    "email": "cursos@upinside.com.br",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A classic CoffeeCode Router is easy, fast and extremely uncomplicated. Create and manage your routes in minutes!",
+            "homepage": "http://www.upinside.com.br",
+            "keywords": [
+                "Coffeecode",
+                "route",
+                "router",
+                "routes",
+                "upinside"
+            ],
+            "support": {
+                "issues": "https://github.com/robsonvleite/router/issues",
+                "source": "https://github.com/robsonvleite/router/tree/1.0.8"
+            },
+            "time": "2021-03-21T18:45:16+00:00"
+        },
+        {
             "name": "coffeecode/uploader",
             "version": "1.0.11",
             "source": {
@@ -224,33 +273,45 @@
         },
         {
             "name": "league/plates",
-            "version": "v3.5.0",
+            "version": "v4.0.0-alpha",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/plates.git",
-                "reference": "a6a3238e46c6e19af7318fdc36bfbe49b0620231"
+                "reference": "f53f4c1fa4bf307d0f3858a348172ff4faf7669a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/plates/zipball/a6a3238e46c6e19af7318fdc36bfbe49b0620231",
-                "reference": "a6a3238e46c6e19af7318fdc36bfbe49b0620231",
+                "url": "https://api.github.com/repos/thephpleague/plates/zipball/f53f4c1fa4bf307d0f3858a348172ff4faf7669a",
+                "reference": "f53f4c1fa4bf307d0f3858a348172ff4faf7669a",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.0|^8.0"
+                "php": "^7.0"
             },
             "require-dev": {
-                "mikey179/vfsstream": "^1.6",
-                "phpunit/phpunit": "^9.5",
-                "squizlabs/php_codesniffer": "^3.5"
+                "eloquent/phony-peridot": "^2.0",
+                "peridot-php/leo": "^1.6",
+                "peridot-php/peridot": "^1.19",
+                "peridot-php/peridot-code-coverage-reporters": "^3.0",
+                "squizlabs/php_codesniffer": "~1.5"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "4.0-dev"
                 }
             },
             "autoload": {
+                "files": [
+                    "src/Template/match.php",
+                    "src/Extension/Data/data.php",
+                    "src/Extension/Path/path.php",
+                    "src/Extension/RenderContext/func.php",
+                    "src/Extension/RenderContext/render-context.php",
+                    "src/Extension/LayoutSections/layout-sections.php",
+                    "src/Extension/Folders/folders.php",
+                    "src/Util/util.php"
+                ],
                 "psr-4": {
                     "League\\Plates\\": "src"
                 }
@@ -267,12 +328,12 @@
                 },
                 {
                     "name": "RJ Garcia",
-                    "email": "ragboyjr@icloud.com",
+                    "email": "rj@bighead.net",
                     "role": "Developer"
                 }
             ],
             "description": "Plates, the native PHP template system that's fast, easy to use and easy to extend.",
-            "homepage": "https://platesphp.com",
+            "homepage": "http://platesphp.com",
             "keywords": [
                 "league",
                 "package",
@@ -282,9 +343,9 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/plates/issues",
-                "source": "https://github.com/thephpleague/plates/tree/v3.5.0"
+                "source": "https://github.com/thephpleague/plates/tree/master"
             },
-            "time": "2023-01-16T20:25:45+00:00"
+            "time": "2018-01-31T07:20:23+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
@@ -529,7 +590,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "league/plates": 15
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
