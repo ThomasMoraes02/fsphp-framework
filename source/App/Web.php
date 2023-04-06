@@ -17,7 +17,7 @@ class Web extends Controller
             CONF_SITE_NAME . " - " . CONF_SITE_TITLE,
             CONF_SITE_DESC,
             url(),
-            url("/assets/images/share,jpg"),
+            url("/assets/images/share.jpg"),
         );
 
         echo $this->view->render("home", [
@@ -26,12 +26,41 @@ class Web extends Controller
         ]);
     }
 
+    public function about()
+    {
+        $head = $this->seo->render(
+            "Descubra o " . CONF_SITE_NAME . " - " . CONF_SITE_DESC,
+            CONF_SITE_DESC,
+            url("/sobre"),
+            url("/assets/images/share.jpg"),
+        );
+
+        echo $this->view->render("about", [
+            "head" => $head,
+            "video" => "sNBLOxxDPrc"
+        ]);
+    }
+
+    public function terms()
+    {
+        $head = $this->seo->render(
+            CONF_SITE_NAME . " - Termos de Uso",
+            CONF_SITE_DESC,
+            url("/terms"),
+            url("/assets/images/share.jpg"),
+        );
+
+        echo $this->view->render("terms", [
+            "head" => $head
+        ]);
+    }
+
     public function error(array $data): void
     {
         $error = new stdClass;
         $error->code = $data['errcode'];
         $error->title = "Ooops. Conteúdo indisponível :/";
-        $error->message = "Sentimes muito, mas o conteúdo que você tentou acessar não existe, está indposnível no momento ou foi removido :/";
+        $error->message = "Sentimos muito, mas o conteúdo que você tentou acessar não existe, está indposnível no momento ou foi removido :/";
         $error->linkTitle = "Continue navegando!";
         $error->link = url_back();
 
@@ -39,7 +68,7 @@ class Web extends Controller
             "{$error->code} | {$error->title}",
             $error->message,
             url("/ops/{$error->code}"),
-            url("/assets/images/share,jpg"),
+            url("/assets/images/share.jpg"),
             false
         );
 
