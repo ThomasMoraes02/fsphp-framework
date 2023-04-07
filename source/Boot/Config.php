@@ -93,6 +93,7 @@ define("CONF_MAIL_PORT", "587");
 define("CONF_MAIL_USER", "tho.vini7@gmail.com");
 define("CONF_MAIL_PASS", "9SsFXZ2t4cdPOqf7");
 define("CONF_MAIL_SENDER", ["name" => "Robson V. Leite", "address" => "cursos@upinside.com.br"]);
+define("CONF_MAIL_SUPORT", "cursos@upinside.com.br");
 define("CONF_MAIL_OPTION_LANG", "br");
 define("CONF_MAIL_OPTION_HTML", true);
 define("CONF_MAIL_OPTION_AUTH", true);
