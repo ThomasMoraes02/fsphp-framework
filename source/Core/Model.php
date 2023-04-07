@@ -280,7 +280,7 @@ abstract class Model
             return true;
         } catch (\PDOException $exception) {
             $this->fail = $exception;
-            return null;
+            return false;
         }
     }
 
