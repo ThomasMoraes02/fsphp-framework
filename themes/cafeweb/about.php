@@ -71,7 +71,7 @@
         </header>
         <div class="faq_asks">
             <?php foreach($faq as $question): ?>
-                <article class="faq_ask j_collapse2">
+                <article class="faq_ask j_collapse">
                     <h4 class="j_collapse_icon icon-plus"><?= $question->question ?></h4>
                     <div class="faq_ask_coll j_collapse_box"><?= $question->response ?></div>
                 </article>

@@ -91,7 +91,7 @@
     </div>
 </footer>
 
-<script src="<?= theme("/assets/scripts.js"); ?>"></script>
+<script type="text/javascript" src="<?= theme("/assets/script.js"); ?>" async defer></script>
 <?= $v->section("scripts"); ?>
 
 </body>
