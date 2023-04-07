@@ -154,6 +154,17 @@ abstract class Model
     }
 
     /**
+     * @param int $id
+     * @param string $columns
+     * @return null|mixed|Model
+     */
+    public function findById(int $id, string $columns = "*"): ?Model
+    {
+        $find = $this->find("id = :id", "id={$id}", $columns);
+        return $find->fetch();
+    }
+
+    /**
      * @param boolean $all
      * @return null|array|mixed|Model
      */
