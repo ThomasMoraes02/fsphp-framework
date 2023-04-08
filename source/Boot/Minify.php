@@ -28,6 +28,7 @@ if(strpos(url(), "localhost")) {
     */
     $minJS = new JS();
     $minJS->add(__DIR__ . "/../../shared/scripts/jquery.min.js");
+    $minJS->add(__DIR__ . "/../../shared/scripts/jquery.form.js");
     $minJS->add(__DIR__ . "/../../shared/scripts/jquery-ui.js");
 
     // Theme JS
