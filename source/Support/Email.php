@@ -2,8 +2,9 @@
 
 namespace Source\Support;
 
-use PHPMailer\PHPMailer\PHPMailer;
+use Source\Support\Message;
 use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
 
 /**
  * FSPHP | Class Email
@@ -13,7 +14,7 @@ use PHPMailer\PHPMailer\Exception;
  */
 class Email
 {
-    /** @var array */
+    /** @var array|object */
     private $data;
 
     /** @var PHPMailer */
