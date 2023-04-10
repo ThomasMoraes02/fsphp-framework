@@ -114,8 +114,13 @@ class Web extends Controller
             theme("/assets/images/share.jpg")
         );
 
-        $blogSearch = (new Post)->find("title LIKE :s OR subtitle LIKE :s", "s=%{$search}%");
+        // Like
+        // $blogSearch = (new Post)->find("title LIKE :s OR subtitle LIKE :s", "s=%{$search}%");
         
+        // FullText
+        // ALTER TABLE posts ADD FULLTEXT(title, subtitle);
+        $blogSearch = (new Post)->find("MATCH(title, subtitle) AGAINST(:s)", "s={$search}");
+
         if(!$blogSearch->count()) {
             echo $this->view->render("blog", [
                 "head" => $head,
