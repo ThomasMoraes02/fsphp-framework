@@ -278,21 +278,40 @@ abstract class Model
 
 
     /**
-     * @param string $key
-     * @param string $value
+     * @param string $terms
+     * @param string|null $params
      * @return boolean
      */
-    protected function delete(string $key, string $value): bool
+    protected function delete(string $terms, ?string $params): bool
     {
         try {
-            $stmt = Connect::getInstance()->prepare("DELETE FROM ".static::$entity." WHERE {$key} = :key");
-            $stmt->bindValue("key", $value, PDO::PARAM_STR);
+            $stmt = Connect::getInstance()->prepare("DELETE FROM ".static::$entity." WHERE {$terms}");
+
+            if($params) {
+                parse_str($params, $params);
+                $stmt->execute((array) $params);
+                return true;
+            }
+
             $stmt->execute();
             return true;
         } catch (\PDOException $exception) {
             $this->fail = $exception;
             return false;
         }
+    }
+
+    /**
+     * @return boolean
+     */
+    public function destroy(): bool
+    {
+        if(empty($this->id)) {
+            return false;
+        }
+
+        $destroy = $this->delete("id = :id", "id={$this->id}");
+        return $destroy;
     }
 
     /**

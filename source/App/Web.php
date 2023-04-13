@@ -1,15 +1,16 @@
 <?php 
 namespace Source\App;
 
-use Source\Core\Controller;
+use stdClass;
 use Source\Models\Auth;
-use Source\Models\Category;
-use Source\Models\Faq\Question;
 use Source\Models\Post;
-use Source\Models\Report\Access;
 use Source\Models\User;
 use Source\Support\Pager;
-use stdClass;
+use Source\Core\Controller;
+use Source\Models\Category;
+use Source\Models\Faq\Question;
+use Source\Models\Report\Access;
+use Source\Models\Report\Online;
 
 class Web extends Controller
 {
@@ -18,6 +19,7 @@ class Web extends Controller
         parent::__construct(__DIR__ . "/../../themes/".CONF_VIEW_THEME."/");
 
         (new Access)->report();
+        (new Online)->report();
     }
 
     public function home(): void
