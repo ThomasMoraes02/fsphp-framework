@@ -354,3 +354,19 @@ function request_limit(string $key, int $limit = 5, int $seconds = 60): bool
 
     return false;
 }
+
+/**
+ * @param string $field
+ * @param string $value
+ * @return boolean
+ */
+function request_repeat(string $field, string $value): bool
+{
+    $session = new Session;
+    if($session->has($field) && $session->$field == $value) {
+        return true;
+    }
+
+    $session->set($field, $value);
+    return false;
+}
