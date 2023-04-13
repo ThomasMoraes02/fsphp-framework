@@ -17,7 +17,7 @@ class Web extends Controller
     public function __construct()
     {
         parent::__construct(__DIR__ . "/../../themes/".CONF_VIEW_THEME."/");
-
+        
         (new Access)->report();
         (new Online)->report();
     }
