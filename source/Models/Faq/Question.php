@@ -9,12 +9,4 @@ class Question extends Model
     {
         parent::__construct("faq_questions", ["id"], ["channel_id", "question", "response"]);
     }
-
-    /**
-     * @return bool
-     */
-    public function save()
-    {
-        
-    }
 }

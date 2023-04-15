@@ -11,13 +11,6 @@
 </head>
 <body>
 
-<div class="ajax_load">
-    <div class="ajax_load_box">
-        <div class="ajax_load_box_circle"></div>
-        <p class="ajax_load_box_title">Aguarde, carregando...</p>
-    </div>
-</div>
-
 <div class="app">
     <header class="app_header">
         <h1><a class="icon-coffee transition" href="<?= url("/app"); ?>" title="CaféApp">CaféApp</a></h1>
@@ -34,14 +27,9 @@
 
             <div class="app_sidebar_user app_widget_title">
                 <span class="user">
-                    <?php if (user()->photo()): ?>
-                        <img class="rounded" alt="Robson" title="Robson"
-                             src="<?= image(user()->photo, 260, 260); ?>"/>
-                    <?php else: ?>
-                        <img class="rounded" alt="Robson" title="Robson"
-                             src="<?= theme("/assets/images/avatar.jpg", CONF_VIEW_APP); ?>"/>
-                    <?php endif; ?>
-                    <span><?= user()->first_name; ?></span>
+                    <img class="rounded" alt="Robson" title="Robson"
+                         src="<?= theme("/assets/images/avatar.jpg", CONF_VIEW_APP); ?>"/>
+                    <span>Robson</span>
                 </span>
                 <span class="plan radius">Free</span>
             </div>
@@ -50,7 +38,6 @@
         </nav>
 
         <main class="app_main">
-            <?= flash(); ?>
             <?= $v->section("content"); ?>
         </main>
     </div>
@@ -61,11 +48,9 @@
             &copy; UpInside - Todos os direitos reservados
         </span>
     </footer>
-
     <?= $v->insert("views/modals"); ?>
 </div>
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-53658515-18"></script>
 <script src="<?= theme("/assets/scripts.js", CONF_VIEW_APP); ?>"></script>
 <?= $v->section("scripts"); ?>
 

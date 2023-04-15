@@ -81,6 +81,8 @@ $(function () {
                 //redirect
                 if (response.redirect) {
                     window.location.href = response.redirect;
+                } else {
+                    load.fadeOut(200);
                 }
 
                 //message
@@ -96,7 +98,7 @@ $(function () {
                 }
             },
             complete: function () {
-                load.fadeOut(200);
+                
 
                 if (form.data("reset") === true) {
                     form.trigger("reset");
@@ -104,5 +106,5 @@ $(function () {
             }
         });
 
-    })
+    });
 });

@@ -65,32 +65,4 @@ class Online extends Model
     {
        $this->delete("updated_at <= NOW()- INTERVAL {$this->sessionTime} MINUTE", null);
     }
-
-    /**
-     * @return boolean
-     */
-    public function save(): bool
-    {
-        // UPDATE
-        if(!empty($this->id)) {
-            $onlineId = $this->id;
-            $this->update($this->safe(), "id = :id", "id={$onlineId}");
-            if($this->fail()) {
-                $this->message->error("Erro ao atualizar, verifique os dados");
-                return false;
-            }
-        }
-
-        // CREATE
-        if(empty($this->id)) {
-            $onlineId = $this->create($this->safe());
-            if($this->fail()) {
-                $this->message->error("Erro ao atualizar, verifique os dados");
-                return false;
-            }
-        }
-
-        $this->data = $this->findById($onlineId)->data();
-        return true;
-    }
 }
