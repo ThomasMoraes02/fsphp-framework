@@ -103,7 +103,7 @@
     </div>
 </footer>
 
-<script type="text/javascript" src="<?= theme("/assets/script.js"); ?>" async defer></script>
+<script type="text/javascript" src="<?= theme("/assets/scripts.js"); ?>" async defer></script>
 <?= $v->section("scripts"); ?>
 
 </body>
