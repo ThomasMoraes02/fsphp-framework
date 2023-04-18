@@ -76,6 +76,7 @@
                     <h2 class="icon-graduation-cap">Aprenda:</h2>
                 </header>
                 <div class="app_widget_content">
+                    <?php if(!empty($posts)): ?>
                     <?php foreach ($posts as $post): ?>
                         <article class="app_widget_blog_article">
                             <div class="thumb">
@@ -88,6 +89,7 @@
                             </h3>
                         </article>
                     <?php endforeach; ?>
+                    <?php endif; ?>
                     <a target="_blank" href="<?= url("/blog"); ?>" title="Blog"
                        class="app_widget_more transition">Ver Mais...</a>
                 </div>
