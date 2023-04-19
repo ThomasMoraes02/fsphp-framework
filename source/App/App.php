@@ -4,10 +4,12 @@ namespace Source\App;
 
 use Source\Core\Controller;
 use Source\Models\Auth;
+use Source\Models\CafeApp\AppInvoice;
 use Source\Models\Report\Access;
 use Source\Models\Report\Online;
 use Source\Models\User;
 use Source\Support\Message;
+use stdClass;
 
 /**
  * Class App
@@ -47,8 +49,49 @@ class App extends Controller
             false
         );
 
+        // CHART
+        $dateChart = [];
+        for($month = -4; $month <= 0; $month++) {
+            $dateChart[] = date("m/Y", strtotime("{$month}month"));
+        }
+
+        $chartData = new stdClass;
+        $chartData->categories = "'" . implode("','", $dateChart) . "'";
+        $chartData->expense = "0,0,0,0,0";
+        $chartData->income = "0,0,0,0,0";
+        
+        $chart = (new AppInvoice())
+        ->find("user_id = :user AND status = :status AND due_at >= DATE(now() - INTERVAL 4 MONTH)", //GROUP BY year(due_at) ASC, month(due_at) ASC
+        "user={$this->user->id}&status=paid",
+        "
+        year(due_at) AS due_year,
+        month(due_at) AS due_month,
+        DATE_FORMAT(due_at, '%m/%Y') AS due_date,
+        (SELECT SUM(value) FROM app_invoices WHERE user_id = :user AND status = :status AND type = 'income' AND year(due_at) = due_year AND month(due_at) = due_month) AS income,
+        (SELECT SUM(value) FROM app_invoices WHERE user_id = :user AND status = :status AND type = 'expense' AND year(due_at) = due_year AND month(due_at) = due_month) AS expense
+        "
+        )->limit(5)->fetch(true);
+
+         if($chart) {
+            $chartCategories = [];
+            $chartExpense = [];
+            $chartIncome = [];
+
+            foreach($chart as $chartItem) {
+                $chartCategories[] = $chartItem->due_date;
+                $chartExpense[] = $chartItem->expense;
+                $chartIncome[] = $chartItem->income;
+            }
+            $chartData->categories = "'" . implode("','", $chartCategories) . "'";
+            $chartData->expense = implode(",", array_map("abs", $chartExpense));
+            $chartData->income = implode(",", array_map("abs", $chartIncome));
+         }
+
+        // END CHART
+
         echo $this->view->render("home", [
-            "head" => $head
+            "head" => $head,
+            "chart" => $chartData
         ]);
     }
 
