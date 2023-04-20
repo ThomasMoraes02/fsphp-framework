@@ -2,15 +2,17 @@
 
 namespace Source\App;
 
-use Source\Core\Controller;
+use stdClass;
+use Source\Core\View;
 use Source\Models\Auth;
-use Source\Models\CafeApp\AppInvoice;
 use Source\Models\Post;
+use Source\Models\User;
+use Source\Support\Email;
+use Source\Core\Controller;
+use Source\Support\Message;
 use Source\Models\Report\Access;
 use Source\Models\Report\Online;
-use Source\Models\User;
-use Source\Support\Message;
-use stdClass;
+use Source\Models\CafeApp\AppInvoice;
 
 /**
  * Class App
@@ -222,6 +224,47 @@ class App extends Controller
             $this->message->success("Despesa lançada com sucesso. Use o filtro para controlar.")->render();
         }
 
+        $json['reload'] = true;
+        echo json_encode($json);
+    }
+
+    public function support(array $data): void
+    {
+        if(empty($data['message'])) {
+            $json['message'] = $this->message->warning("Para enviar, escreve sua mensagem")->render();
+            echo json_encode($json);
+            return;
+        }
+
+        if(request_limit("appsupport", 3, 60 * 5)) {
+            $json['message'] = $this->message->warning("Por favor, aguarde 5 minutos para enviar novos contatos, sugestões ou reclamações")->render();
+            echo json_encode($json);
+            return;
+        }
+
+        if(request_repeat("message", $data['message'])) {
+            $json['message'] = $this->message->info("Já recebemos sua solicitação {$this->user->first_name}. Agradecemos pelo contato e responderemos em breve")->render();
+            echo json_encode($json);
+            return;
+        }
+
+        $subject = date_fmt() . " - {$data['subject']}";
+        $message = filter_var($data['message'], FILTER_SANITIZE_STRING);
+
+        $view = new View(__DIR__ . "/../../shared/views/email");
+        $body = $view->render("mail", [
+            "subject" => $subject,
+            "message" => str_text_area($message)
+        ]);
+
+        (new Email())->bootstrap(
+            $subject,
+            $body,
+            CONF_MAIL_SUPORT,
+            "Suporte " . CONF_SITE_NAME
+        )->queue($this->user->email, "{$this->user->first_name} {$this->user->last_name}");
+
+        $this->message->success("Recebemos sua solicitação {$this->user->first_name}. Agradecemos pelo contato e responderemos em breve")->flash();
         $json['reload'] = true;
         echo json_encode($json);
     }
