@@ -12,7 +12,7 @@
         </select>
 
         <select name="category">
-            <option value="">Todas</option>
+            <option value="all">Todas</option>
             <?php foreach ($categories as $category): ?>
                 <option <?= (!empty($filter->category) && $filter->category == $category->id ? "selected" : ""); ?>
                         value="<?= $category->id; ?>"><?= $category->name; ?></option>
@@ -26,7 +26,7 @@
             <?php for ($range = -2; $range <= 2; $range++):
                 $dateRange = date("m/Y", strtotime(date("Y-m-01") . "+{$range}month"));
                 ?>
-                <option value="<?= $dateRange; ?>"/>
+                <option value="<?= $dateRange; ?>">
             <?php endfor; ?>
         </datalist>
 

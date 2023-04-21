@@ -9,6 +9,7 @@ use Source\Models\Post;
 use Source\Models\User;
 use Source\Support\Email;
 use Source\Core\Controller;
+use Source\Models\CafeApp\AppCategory;
 use Source\Support\Message;
 use Source\Models\Report\Access;
 use Source\Models\Report\Online;
@@ -131,10 +132,15 @@ class App extends Controller
         ]);
     }
 
+    public function filter(array $data)
+    {
+        var_dump($data);
+    }
+
     /**
      * APP INCOME (Receber)
      */
-    public function income()
+    public function income(?array $data): void
     {
         $head = $this->seo->render(
             "Minhas receitas - " . CONF_SITE_NAME,
@@ -144,15 +150,26 @@ class App extends Controller
             false
         );
 
-        echo $this->view->render("income", [
-            "head" => $head
+        $categories = (new AppCategory)->find("type = :t", "t=income", "id, name")->order("order_by, name")->fetch(true);
+
+        echo $this->view->render("invoices", [
+            "head" => $head,
+            "user" => $this->user,
+            "type" => "income",
+            "categories" => $categories,
+            "invoices" => (new AppInvoice)->filter($this->user, "income", ($data ?? null)),
+            "filter" => (object) [
+                "status" => ($data['status'] ?? null),
+                "category" => ($data['category'] ?? null),
+                "date" => (!empty($data['date']) ? str_replace("-", "/", $data['date']) : null)
+            ]
         ]);
     }
 
     /**
      * APP EXPENSE (Pagar)
      */
-    public function expense()
+    public function expense(?array $data): void
     {
         $head = $this->seo->render(
             "Minhas despesas - " . CONF_SITE_NAME,
@@ -162,8 +179,19 @@ class App extends Controller
             false
         );
 
-        echo $this->view->render("expense", [
-            "head" => $head
+        $categories = (new AppCategory)->find("type = :t", "t=expense", "id, name")->order("order_by, name")->fetch(true);
+
+        echo $this->view->render("invoices", [
+            "head" => $head,
+            "user" => $this->user,
+            "type" => "expense",
+            "categories" => $categories,
+            "invoices" => (new AppInvoice)->filter($this->user, "expense", ($data ?? null)),
+            "filter" => (object) [
+                "status" => ($data['status'] ?? null),
+                "category" => ($data['category'] ?? null),
+                "date" => (!empty($data['date']) ? str_replace("-", "/", $data['date']) : null)
+            ]
         ]);
     }
 
