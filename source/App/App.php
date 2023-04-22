@@ -220,6 +220,22 @@ class App extends Controller
         ]);
     }
 
+    public function fixed(): void
+    {
+        $head = $this->seo->render(
+            "Minhas contas fixas - " . CONF_SITE_NAME,
+            CONF_SITE_DESC,
+            url(),
+            theme("/assets/images/share.jpg"),
+            false
+        );
+
+        echo $this->view->render("recurrences", [
+            "head" => $head,
+            "invoices" => (new AppInvoice)->find("user_id = :user AND type IN('fixed_income', 'fixed_expense')", "user={$this->user->id}")->fetch(true)
+        ]);
+    }
+
     public function launch(array $data): void
     {
         if(request_limit("applaunch", 20, 60 * 5)) {
