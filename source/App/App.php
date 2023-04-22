@@ -43,6 +43,7 @@ class App extends Controller
         (new Access())->report();
         (new Online())->report();
 
+        (new AppWallet)->start($this->user);
         (new AppInvoice)->fixed($this->user, 3);
     }
 
