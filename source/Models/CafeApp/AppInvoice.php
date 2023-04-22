@@ -56,12 +56,7 @@ class AppInvoice extends Model
                     $newItem->save();
                 }
             }
-
-
-            // var_dump($invoice, $start, $end);
         }
-
-    //    var_dump($fixed);
     }
 
     /**
