@@ -1,6 +1,7 @@
 <?php $v->layout("_theme"); ?>
 
 <div class="app_launch_header">
+
     <form class="app_launch_form_filter app_form" action="<?= url("/app/filter"); ?>" method="post">
         <input type="hidden" name="filter" value="<?= $type; ?>"/>
 
@@ -25,7 +26,7 @@
             <?php for ($range = -2; $range <= 2; $range++):
                 $dateRange = date("m/Y", strtotime(date("Y-m-01") . "+{$range}month"));
                 ?>
-                <option value="<?= $dateRange; ?>"/>
+                <option value="<?= $dateRange; ?>">
             <?php endfor; ?>
         </datalist>
 
@@ -76,14 +77,11 @@
                     <?php if ($invoice->repeat_when == "fixed"): ?>
                         <span class="app_invoice_link">
                             <a href="<?= url("/app/fatura/{$invoice->invoice_of}"); ?>" class="icon-exchange"
-                               title="Controlar Conta Fixa">Fixa</a>
+                               title="Controlar">Fixa</a>
                         </span>
                     <?php elseif ($invoice->repeat_when == 'enrollment'): ?>
-                        <span class="app_invoice_link">
-                            <a href="<?= url("/app/fatura/{$invoice->invoice_of}"); ?>"
-                               title="Controlar Parcelamento"><?= str_pad($invoice->enrollment_of, 2, 0,
-                                    0); ?> de <?= str_pad($invoice->enrollments, 2, 0, 0); ?></a>
-                        </span>
+                        <?= str_pad($invoice->enrollment_of, 2, 0, 0); ?> de <?= str_pad($invoice->enrollments, 2, 0,
+                            0); ?>
                     <?php else: ?>
                         <span class="icon-calendar-check-o">Única</span>
                     <?php endif; ?>

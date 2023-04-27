@@ -134,6 +134,9 @@ class App extends Controller
          if($wallet) {
             $wallet->wallet = $wallet->income - $wallet->expense;
          }
+
+         $wallet = (!empty($wallet) ? $wallet : new stdClass);
+         $wallet->balance = (!empty($wallet->wallet) && $wallet->wallet >= 1 ? "positive" : "negative");
         // END WALLET
 
         // POSTS

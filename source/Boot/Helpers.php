@@ -215,6 +215,14 @@ function user(): ?User
     return Auth::user();
 }
 
+/**
+ * @return Session
+ */
+function session(): Session
+{
+    return new Session;
+}
+
  /**
   * @param string|null $path
   * @param [type] $theme
