@@ -280,7 +280,7 @@ class App extends Controller
         $invoice->due_at = $data['due_at'];
         $invoice->repeat_when = $data['repeat_when'];
         $invoice->period = ($data['period'] ?? "month");
-        $invoice->enrollments = (empty($data['enrollments']) ?? 1);
+        $invoice->enrollments = intval((empty($data['enrollments']) ?? 1));
         $invoice->enrollment_of = 1;
         $invoice->status = ($data['repeat_when'] == "fixed" ? "paid" : $status);
         
