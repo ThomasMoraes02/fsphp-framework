@@ -1,9 +1,10 @@
 <?php 
 namespace Source\Models\CafeApp;
 
-use DateInterval;
-use DatePeriod;
 use DateTime;
+use stdClass;
+use DatePeriod;
+use DateInterval;
 use Source\Core\Model;
 use Source\Models\User;
 use Source\Models\CafeApp\AppCategory;
@@ -95,6 +96,40 @@ class AppInvoice extends Model
     {
         return (new AppCategory)->findById($this->category_id);
     }
+    
+    /**
+     * @param User $user
+     * @return object
+     */
+    public function balance(User $user): object
+    {
+        $balance = new stdClass;
+        $balance->income = 0;
+        $balance->expense = 0;
+        $balance->wallet = 0;
+        $balance->balance = "positive";
+
+        $find = $this->find("user_id = :user AND status = :status",
+         "user={$user->id}&status=paid",
+         "
+            (SELECT SUM(value) FROM app_invoices WHERE user_id = :user AND status = :status AND type = 'income') AS income,
+            (SELECT SUM(value) FROM app_invoices WHERE user_id = :user AND status = :status AND type = 'expense') AS expense
+         ")->fetch();
+
+         if($find) {
+            $balance->income = abs($find->income);
+            $balance->expense = abs($find->expense);;
+            $balance->wallet = $balance->income - $balance->expense;
+            $balance->balance = ($balance->wallet >= 1 ? "positive" : "negative");
+         }
+
+         return $balance;
+    }
+
+    public function balanceWallet(AppWallet $wallet): object
+    {
+        
+    }
 
     /**
      * @param User $user
@@ -103,7 +138,7 @@ class AppInvoice extends Model
      * @param string $type
      * @return object|null
      */
-    public function balance(User $user, int $year, int $month, string $type): ?object
+    public function balanceMonth(User $user, int $year, int $month, string $type): ?object
     {
         $onpaid = $this->find("user_id = :user", "user={$user->id}&type={$type}&year={$year}&month={$month}",
         "
@@ -119,5 +154,51 @@ class AppInvoice extends Model
            "paid" => str_price(($onpaid->paid ?? 0)),
            "unpaid" => str_price(($onpaid->unpaid ?? 0))
        ];
+    }
+
+    /**
+     * @param User $user
+     * @return object
+     */
+    public function chartData(User $user): object
+    {
+        $dateChart = [];
+        for($month = -4; $month <= 0; $month++) {
+            $dateChart[] = date("m/Y", strtotime("{$month}month"));
+        }
+
+        $chartData = new stdClass;
+        $chartData->categories = "'" . implode("','", $dateChart) . "'";
+        $chartData->expense = "0,0,0,0,0";
+        $chartData->income = "0,0,0,0,0";
+        
+        $chart = (new AppInvoice())
+        ->find("user_id = :user AND status = :status AND due_at >= DATE(now() - INTERVAL 4 MONTH)", //GROUP BY year(due_at) ASC, month(due_at) ASC
+        "user={$user->id}&status=paid",
+        "
+        year(due_at) AS due_year,
+        month(due_at) AS due_month,
+        DATE_FORMAT(due_at, '%m/%Y') AS due_date,
+        (SELECT SUM(value) FROM app_invoices WHERE user_id = :user AND status = :status AND type = 'income' AND year(due_at) = due_year AND month(due_at) = due_month) AS income,
+        (SELECT SUM(value) FROM app_invoices WHERE user_id = :user AND status = :status AND type = 'expense' AND year(due_at) = due_year AND month(due_at) = due_month) AS expense
+        "
+        )->limit(5)->fetch(true);
+
+         if($chart) {
+            $chartCategories = [];
+            $chartExpense = [];
+            $chartIncome = [];
+
+            foreach($chart as $chartItem) {
+                $chartCategories[] = $chartItem->due_date;
+                $chartExpense[] = $chartItem->expense;
+                $chartIncome[] = $chartItem->income;
+            }
+            $chartData->categories = "'" . implode("','", $chartCategories) . "'";
+            $chartData->expense = implode(",", array_map("abs", $chartExpense));
+            $chartData->income = implode(",", array_map("abs", $chartIncome));
+         }
+
+         return $chartData;
     }
 }
