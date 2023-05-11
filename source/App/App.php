@@ -12,10 +12,12 @@ use Source\Support\Email;
 use Source\Core\Controller;
 use Source\Core\Session;
 use Source\Models\CafeApp\AppCategory;
+use Source\Models\CafeApp\AppCreditCard;
 use Source\Support\Message;
 use Source\Models\Report\Access;
 use Source\Models\Report\Online;
 use Source\Models\CafeApp\AppInvoice;
+use Source\Models\CafeApp\AppPlan;
 use Source\Models\CafeApp\AppWallet;
 use Source\Support\Thumb;
 use Source\Support\Upload;
@@ -56,6 +58,9 @@ class App extends Controller
                 (new Auth)->register($this->user);
             }
         }
+
+        // $card = new AppCreditCard;
+        // $card->creditCard($this->user, "5416 4383 5309 9665", "Thomas Moraes", "04/2025", "134");
     }
 
     /**
@@ -618,6 +623,28 @@ class App extends Controller
             "head" => $head,
             "user" => $this->user,
             "photo" => ($this->user->photo() ? image($this->user->photo, 360, 360) : theme("/assets/images/avatar.jpg", CONF_VIEW_APP))
+        ]);
+    }
+
+    /**
+     * @param array|null $data
+     * @return void
+     */
+    public function signature(?array $data): void
+    {
+        $head = $this->seo->render(
+            "Assinatura - " . CONF_SITE_NAME,
+            CONF_SITE_DESC,
+            url(),
+            theme("/assets/images/share.jpg"),
+            false
+        );
+
+        echo $this->view->render("signature", [
+            "head" => $head,
+            "subscription" => "",
+            "orders" => "",
+            "plans" => (new AppPlan)->find("status = :status", "status=active")->order("name, price")->fetch(true)
         ]);
     }
 

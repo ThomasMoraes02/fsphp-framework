@@ -103,6 +103,6 @@ define("CONF_MAIL_OPTION_CHARSET", "utf-8");
  * PAGAR.ME
  */
 define("CONF_PAGARME_MODE", "test");
-define("CONF_PAGARME_LIVE", "ak_live_TEST");
-define("CONF_PAGARME_TEST", "ak_test_TEST");
+define("CONF_PAGARME_LIVE", "sk_live_yoRVLOyfw2iv3zEP");
+define("CONF_PAGARME_TEST", "sk_test_yoRVLOyfw2iv3zEP");
 define("CONF_PAGARME_BACK", CONF_URL_BASE . "/pay/callback");

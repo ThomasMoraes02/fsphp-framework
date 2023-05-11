@@ -14,10 +14,7 @@ class AppCreditCard extends Model
 
     private array $build;
 
-    /**
-     * @var string|object
-     */
-    private string $callback;
+    private $callback;
 
     public function __construct()
     {
@@ -49,6 +46,9 @@ class AppCreditCard extends Model
 
         $this->endpoint = "/1/cards";
         $this->post();
+
+        var_dump($this->callback);
+        die();
 
         if(empty($this->callback->id) || !$this->callback->valid) {
             $this->message->warning("Não foi possível validar o cartão");
