@@ -8,19 +8,21 @@ use Source\Core\View;
 use Source\Models\Auth;
 use Source\Models\Post;
 use Source\Models\User;
-use Source\Support\Email;
-use Source\Core\Controller;
 use Source\Core\Session;
-use Source\Models\CafeApp\AppCategory;
-use Source\Models\CafeApp\AppCreditCard;
+use Source\Support\Email;
+use Source\Support\Thumb;
+use Source\Support\Upload;
+use Source\Core\Controller;
 use Source\Support\Message;
 use Source\Models\Report\Access;
 use Source\Models\Report\Online;
-use Source\Models\CafeApp\AppInvoice;
 use Source\Models\CafeApp\AppPlan;
+use Source\Models\CafeApp\AppOrder;
 use Source\Models\CafeApp\AppWallet;
-use Source\Support\Thumb;
-use Source\Support\Upload;
+use Source\Models\CafeApp\AppInvoice;
+use Source\Models\CafeApp\AppCategory;
+use Source\Models\CafeApp\AppCreditCard;
+use Source\Models\CafeApp\AppSubscription;
 
 /**
  * Class App
@@ -642,8 +644,8 @@ class App extends Controller
 
         echo $this->view->render("signature", [
             "head" => $head,
-            "subscription" => "",
-            "orders" => "",
+            "subscription" => (new AppSubscription)->find("user_id = :user AND status != :status", "user={$this->user->id}&status=canceled")->fetch(),
+            "orders" => (new AppOrder)->find("user_id = :user", "user={$this->user->id}")->order("created_at DESC")->fetch(true),
             "plans" => (new AppPlan)->find("status = :status", "status=active")->order("name, price")->fetch(true)
         ]);
     }
