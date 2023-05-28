@@ -1,4 +1,4 @@
-<?php $v->layout("_theme"); ?>
+<?php $this->layout("_theme"); ?>
 
 <div class="ajax_response"></div>
 

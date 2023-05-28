@@ -101,7 +101,7 @@ class Web extends Controller
     public function blogSearch(array $data): void
     {
         if(!empty($data['s'])) {
-            $search = filter_var($data['s'], FILTER_SANITIZE_STRIPPED);
+            $search = filter_var($data['s'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             echo json_encode(["redirect" => url("/blog/buscar/{$search}/1")]);
             return;
         }
@@ -110,7 +110,7 @@ class Web extends Controller
             redirect("/blog");
         }
 
-        $search = filter_var($data['terms'], FILTER_SANITIZE_STRIPPED);
+        $search = filter_var($data['terms'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $page = (filter_var($data['page'], FILTER_VALIDATE_INT) >= 1 ? $data['page'] : 1);
 
         $head = $this->seo->render(
@@ -154,7 +154,7 @@ class Web extends Controller
      */
     public function blogCategory(array $data): void
     {
-       $categoryUri = filter_var($data['category'], FILTER_SANITIZE_STRIPPED); 
+       $categoryUri = filter_var($data['category'], FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
        $category = (new Category)->findByUri($categoryUri);
 
        if(!$category) {

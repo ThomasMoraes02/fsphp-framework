@@ -1,4 +1,4 @@
-<?php $v->layout("_theme"); ?>
+<?php $this->layout("_theme"); ?>
 
 <article class="optin_page">
     <div class="container content">

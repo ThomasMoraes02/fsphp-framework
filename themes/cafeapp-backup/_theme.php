@@ -46,12 +46,12 @@
                 <span class="plan radius">Free</span>
             </div>
 
-            <?= $v->insert("views/sidebar"); ?>
+            <?= $this->insert("views/sidebar"); ?>
         </nav>
 
         <main class="app_main">
             <?= flash(); ?>
-            <?= $v->section("content"); ?>
+            <?= $this->section("content"); ?>
         </main>
     </div>
 
@@ -62,12 +62,12 @@
         </span>
     </footer>
 
-    <?= $v->insert("views/modals"); ?>
+    <?= $this->insert("views/modals"); ?>
 </div>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-53658515-18"></script>
 <script src="<?= theme("/assets/scripts.js", CONF_VIEW_APP); ?>"></script>
-<?= $v->section("scripts"); ?>
+<?= $this->section("scripts"); ?>
 
 </body>
 </html>

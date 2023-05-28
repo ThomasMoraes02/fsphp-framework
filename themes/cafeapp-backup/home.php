@@ -1,4 +1,4 @@
-<?php $v->layout("_theme"); ?>
+<?php $this->layout("_theme"); ?>
     <div class="app_main_box">
         <section class="app_main_left">
             <article class="app_widget">
@@ -16,7 +16,7 @@
                     <div class="app_widget_content">
                         <?php if (!empty($income)): ?>
                             <?php foreach ($income as $incomeItem): ?>
-                                <?= $v->insert("views/balance", ["invoice" => $incomeItem->data()]); ?>
+                                <?= $this->insert("views/balance", ["invoice" => $incomeItem->data()]); ?>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <div class="message success al-center icon-check-square-o">
@@ -35,7 +35,7 @@
                     <div class="app_widget_content">
                         <?php if (!empty($expense)): ?>
                             <?php foreach ($expense as $expenseItem): ?>
-                                <?= $v->insert("views/balance", ["invoice" => $expenseItem->data()]); ?>
+                                <?= $this->insert("views/balance", ["invoice" => $expenseItem->data()]); ?>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <div class="message error al-center icon-check-square-o">
@@ -97,7 +97,7 @@
         </section>
     </div>
 
-<?php $v->start("scripts"); ?>
+<?php $this->start("scripts"); ?>
     <script type="text/javascript">
         Highcharts.setOptions({
             lang: {
@@ -149,4 +149,4 @@
             }]
         });
     </script>
-<?php $v->end(); ?>
+<?php $this->end(); ?>

@@ -46,11 +46,11 @@
 
 <!--CONTENT-->
 <main class="main_content">
-    <?= $v->section("content"); ?>
+    <?= $this->section("content"); ?>
 </main>
 
-<?php if ($v->section("optout")): ?>
-    <?= $v->section("optout"); ?>
+<?php if ($this->section("optout")): ?>
+    <?= $this->section("optout"); ?>
 <?php else: ?>
     <article class="footer_optout">
         <div class="footer_optout_content content">
@@ -104,7 +104,7 @@
 </footer>
 
 <script type="text/javascript" src="<?= theme("/assets/scripts.js"); ?>" async defer></script>
-<?= $v->section("scripts"); ?>
+<?= $this->section("scripts"); ?>
 
 </body>
 </html>

@@ -45,7 +45,7 @@ function is_passwd(string $password): bool
  */
 function str_slug(string $string): string
 {
-    $string = filter_var(mb_strtolower($string), FILTER_SANITIZE_STRIPPED);
+    $string = filter_var(mb_strtolower($string), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $formats = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜüÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿRr"!@#$%&*()_-+={[}]/?;:.,\\\'<>°ºª';
     $replace = 'aaaaaaaceeeeiiiidnoooooouuuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyRr                                 ';
 
@@ -95,7 +95,7 @@ function str_title(string $string): string
  */
 function str_text_area(string $text): string
 {
-    $text = filter_var($text, FILTER_SANITIZE_STRIPPED);
+    $text = filter_var($text, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $arrayReplace = ["&#10;", "&#10;&#10;", "&#10;&#10;&#10;", "&#10;&#10;&#10;&#10;", "&#10;&#10;&#10;&#10;&#10;"];
     return "<p>". str_replace($arrayReplace, "<p></p>", $text) . "</p>";
 }

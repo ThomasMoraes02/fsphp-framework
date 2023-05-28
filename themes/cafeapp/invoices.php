@@ -1,4 +1,4 @@
-<?php $v->layout("_theme"); ?>
+<?php $this->layout("_theme"); ?>
 
 <div class="app_launch_header">
     <form class="app_launch_form_filter app_form" action="<?= url("/app/filter"); ?>" method="post">

@@ -1,4 +1,4 @@
-<?php $v->layout("_theme"); ?>
+<?php $this->layout("_theme"); ?>
 
 <!--FEATURED-->
 <article class="home_featured">
@@ -119,7 +119,7 @@
 
         <div class="blog_articles">
             <?php foreach($blog as $post): ?>
-                <?php $v->insert("blog-list", ['post' => $post]); ?>
+                <?php $this->insert("blog-list", ['post' => $post]); ?>
             <?php endforeach; ?>
         </div>
     </div>

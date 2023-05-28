@@ -1,4 +1,4 @@
-<?php $v->layout("theme") ?>
+<?php $this->layout("theme") ?>
 
 <!--FEATURED-->
 <article class="home_featured">
@@ -110,7 +110,7 @@
 
         <div class="blog_articles">
             <?php for ($i = 0; $i <= 5; $i++) : ?>
-                <?php $v->insert("views/blog-post") ?>
+                <?php $this->insert("views/blog-post") ?>
             <?php endfor; ?>
         </div>
     </div>

@@ -127,7 +127,7 @@ abstract class Model
     {
         if($terms) {
             $this->query = "SELECT {$columns} FROM " . $this->entity . " WHERE {$terms}";
-            parse_str($params, $this->params);
+            parse_str($params ?? "", $this->params);
             return $this;    
         }
 

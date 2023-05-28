@@ -36,10 +36,10 @@
 
     <!--CONTENT-->
     <main class="main_content">
-        <?= $v->section("content") ?>
+        <?= $this->section("content") ?>
 
-        <?php if ($v->section("optout")) : ?>
-            <?= $v->section("optout") ?>
+        <?php if ($this->section("optout")) : ?>
+            <?= $this->section("optout") ?>
         <?php else : ?>
             <article class="footer_optout">
                 <div class="footer_optout_content content">

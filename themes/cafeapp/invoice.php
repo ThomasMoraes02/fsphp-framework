@@ -1,4 +1,4 @@
-<?php $v->layout("_theme"); ?>
+<?php $this->layout("_theme"); ?>
 
 <div class="app_formbox app_widget">
     <form class="app_form" action="<?= url("/app/invoice/{$invoice->id}"); ?>" method="post">
