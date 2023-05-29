@@ -76,7 +76,14 @@ class AppInvoice extends Model
      */
     public function filter(User $user, string $type, ?array $filter, ?int $limit = null): ?array
     {
-        $status = (!empty($filter['status']) && $filter['status'] == "paid" ? "AND status = 'paid'" : (!empty($filter['status']) && $filter['status'] == "unpaid") ? "AND status = 'unpaid'" : null);
+        if(!empty($filter['status']) && $filter['status'] == "paid") {
+            $status = "AND status = 'paid'";
+        } elseif(!empty($filter['status']) && $filter['status'] == "unpaid") {
+            $status = "AND status = 'unpaid'";
+        } else {
+            $status = null;
+        }
+
         $category = (!empty($filter['category']) && $filter['category'] != "all" ? "AND category_id = '{$filter['category']}'" : null);
 
         $due_year = (!empty($filter['date']) ? explode("-", $filter['date'])[1] : date("Y"));

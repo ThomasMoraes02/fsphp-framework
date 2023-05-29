@@ -110,6 +110,8 @@ $(function () {
     $(".mask-month").mask('00/0000', {reverse: true});
     $(".mask-doc").mask('000.000.000-00', {reverse: true});
     $(".mask-card").mask('0000  0000  0000  0000', {reverse: true});
+    $(".mask-mobile-phone").mask('(00) 00000-0000');
+    $(".mask-zip").mask('00000-000');
 
     /*
      * AJAX FORM

@@ -1,26 +1,32 @@
-<?php 
+<?php
+
 namespace Source\Models\CafeApp;
 
 use Source\Core\Model;
 use Source\Models\User;
 
+/**
+ * Class AppOrder
+ * @package Source\Models\CafeApp
+ */
 class AppOrder extends Model
 {
+    /**
+     * AppOrder constructor.
+     */
     public function __construct()
     {
-        parent::__construct("app_orders", ["id"], ["user_id", "card_id", "subscription_id", "transaction", "amount", "status"]);
+        parent::__construct("app_orders", ["id"],
+            ["user_id", "card_id", "subscription_id", "transaction", "amount", "status"]);
     }
 
     /**
-     * Updates the AppOrder object with credit card information and saves it to the database.
-     *
-     * @param User $user the User object of the customer
-     * @param AppCreditCard $card the AppCreditCard object used for the transaction
-     * @param AppSubscription $sub the AppSubscription object associated with the transaction
-     * @param AppCreditCard $tr the AppCreditCard object containing the transaction details
-     * @return AppOrder the updated AppOrder object
+     * @param User $user
+     * @param AppCreditCard $card
+     * @param AppSubscription $sub
+     * @param AppCreditCard $tr
+     * @return AppOrder
      */
-
     public function byCreditCard(User $user, AppCreditCard $card, AppSubscription $sub, AppCreditCard $tr): AppOrder
     {
         $this->user_id = $user->id;
@@ -33,8 +39,11 @@ class AppOrder extends Model
         return $this;
     }
 
+    /**
+     * @return mixed|Model|null
+     */
     public function creditCard()
     {
-        return (new AppCreditCard)->findById($this->card_id);
+        return (new AppCreditCard())->findById($this->card_id);
     }
 }

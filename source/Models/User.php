@@ -55,7 +55,17 @@ class User extends Model
     public function findByEmail(string $email, string $columns = "*"): ?User
     {
         $find = $this->find("email = :email", "email={$email}", $columns);
+
+        var_dump($find);
         return $find->fetch();
+    }
+
+    /**
+     * @return string
+     */
+    public function fullName(): string
+    {
+        return "{$this->first_name} {$this->last_name}";
     }
 
     /**
