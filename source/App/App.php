@@ -149,7 +149,7 @@ class App extends Controller
         // END WALLET
 
         // POSTS
-        $posts = (new Post())->find()->limit(3)->order("post_at DESC")->fetch(true);
+        $posts = (new Post())->findPost()->limit(3)->order("post_at DESC")->fetch(true);
         // END POSTS
 
         echo $this->view->render("home", [
@@ -431,7 +431,7 @@ class App extends Controller
             return;
         }
 
-        $subject = date_fmt() . " - {$data['subject']}";
+        $subject = date_fmt(null) . " - {$data['subject']}";
         $message = filter_var($data['message'], FILTER_SANITIZE_STRING);
 
         $view = new View(__DIR__ . "/../../shared/views/email");

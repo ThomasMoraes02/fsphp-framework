@@ -34,7 +34,7 @@ class Web extends Controller
         echo $this->view->render("home", [
             "head" => $head,
             "video" => "sNBLOxxDPrc",
-            "blog" => (new Post)->find()->order("post_at DESC")->limit(6)->fetch(true)
+            "blog" => (new Post)->findPost()->order("post_at DESC")->limit(6)->fetch(true)
         ]);
     }
 
@@ -63,13 +63,13 @@ class Web extends Controller
             theme("/assets/images/share.jpg"),
         );
         
-        $blog = (new Post)->find();
+        $blog = (new Post)->findPost();
         $pager = new Pager(url("/blog/p/"));
         $pager->pager($blog->count(),9, ($data['page'] ?? 1));
 
         echo $this->view->render("blog", [
             "head" => $head,
-            "blog" => $blog->limit($pager->limit())->offset($pager->offset())->fetch(true),
+            "blog" => $blog->order('post_at DESC')->limit($pager->limit())->offset($pager->offset())->fetch(true),
             "paginator" => $pager->render()
         ]);
     }
@@ -81,8 +81,11 @@ class Web extends Controller
             redirect("/404");
         }   
 
-        $post->views += 1;
-        $post->save();
+        $user = Auth::user();
+        if(!$user || $user->level < 5) {
+            $post->views += 1;
+            $post->save();
+        }
 
         $head = $this->seo->render(
             "{$post->title} - " . CONF_SITE_NAME,
@@ -94,7 +97,7 @@ class Web extends Controller
         echo $this->view->render("blog-post", [
             "head" => $head,
             "post" => $post,
-            "related" => (new Post)->find("category = :c AND id != :i", "c={$post->category}&i={$post->id}")->order("rand()")->limit(3)->fetch(true)
+            "related" => (new Post)->findPost("category = :c AND id != :i", "c={$post->category}&i={$post->id}")->order("rand()")->limit(3)->fetch(true)
         ]);
     }
 
@@ -121,11 +124,11 @@ class Web extends Controller
         );
 
         // Like
-        // $blogSearch = (new Post)->find("title LIKE :s OR subtitle LIKE :s", "s=%{$search}%");
+        // $blogSearch = (new Post)->findPost("title LIKE :s OR subtitle LIKE :s", "s=%{$search}%");
         
         // FullText
         // ALTER TABLE posts ADD FULLTEXT(title, subtitle);
-        $blogSearch = (new Post)->find("MATCH(title, subtitle) AGAINST(:s)", "s={$search}");
+        $blogSearch = (new Post)->findPost("MATCH(title, subtitle) AGAINST(:s)", "s={$search}");
 
         if(!$blogSearch->count()) {
             echo $this->view->render("blog", [
@@ -161,7 +164,7 @@ class Web extends Controller
           redirect("/blog");
        }
 
-       $blogCategory = (new Post)->find("category = :c", "c={$category->id}");
+       $blogCategory = (new Post)->findPost("category = :c", "c={$category->id}");
        $page = (!empty($data['page']) && filter_var($data['page'], FILTER_VALIDATE_INT) >= 1 ? $data['page'] : 1);
        $pager = new Pager(url("/blog/em/{$category->uri}/"));
        $pager->pager($blogCategory->count(), 9, $page);
