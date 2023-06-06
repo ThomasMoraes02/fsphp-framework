@@ -1,5 +1,5 @@
-<?php $v->layout("_admin"); ?>
-<?php $v->insert("widgets/blog/sidebar.php"); ?>
+<?php $this->layout("_admin"); ?>
+<?php $this->insert("widgets/blog/sidebar.php"); ?>
 
 <div class="mce_upload" style="z-index: 998">
     <div class="mce_upload_box">

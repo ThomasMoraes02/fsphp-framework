@@ -1,5 +1,5 @@
-<?php $v->layout("_admin"); ?>
-<?php $v->insert("widgets/dash/sidebar.php"); ?>
+<?php $this->layout("_admin"); ?>
+<?php $this->insert("widgets/dash/sidebar"); ?>
 
 <section class="dash_content_app">
     <header class="dash_content_app_header">
@@ -12,7 +12,7 @@
                 <h4 class="icon-coffee">Control</h4>
                 <p><b>Assinantes:</b> <?= $control->subscribers; ?></p>
                 <p><b>Planos:</b> <?= $control->plans; ?></p>
-                <p><b>Recorrencia:</b> R$ <?= str_price($control->recurrence); ?></p>
+                <p><b>Recorrencia:</b> R$ <?= str_price($control->recurrency); ?></p>
             </article>
 
             <article class="blog radius">
@@ -58,7 +58,7 @@
     </div>
 </section>
 
-<?php $v->start("scripts"); ?>
+<?php $this->start("scripts"); ?>
 <script>
     $(function () {
         setInterval(function () {
@@ -97,4 +97,4 @@
         }, 1000 * 10);
     });
 </script>
-<?php $v->end(); ?>
+<?php $this->end(); ?>

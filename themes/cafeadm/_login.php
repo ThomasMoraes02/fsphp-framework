@@ -21,7 +21,7 @@
     </div>
 </div>
 
-<?= $v->section("content"); ?>
+<?= $this->section("content"); ?>
 
 <script src="<?= url("/shared/scripts/jquery.min.js"); ?>"></script>
 <script src="<?= url("/shared/scripts/jquery-ui.js"); ?>"></script>

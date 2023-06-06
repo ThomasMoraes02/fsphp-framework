@@ -68,6 +68,14 @@ class User extends Model
         return "{$this->first_name} {$this->last_name}";
     }
 
+     /**
+     * @return string
+     */
+    public function full_name(): string
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
+
     /**
      * @return string|null
      */

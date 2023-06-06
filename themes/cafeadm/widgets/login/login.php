@@ -1,4 +1,4 @@
-<?php $v->layout("_login"); ?>
+<?php $this->layout("_login"); ?>
 
 <div class="login">
     <article class="login_box radius">

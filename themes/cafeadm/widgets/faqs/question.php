@@ -1,5 +1,5 @@
-<?php $v->layout("_admin"); ?>
-<?php $v->insert("widgets/faqs/sidebar.php"); ?>
+<?php $this->layout("_admin"); ?>
+<?php $this->insert("widgets/faqs/sidebar.php"); ?>
 
 <section class="dash_content_app">
     <?php if (!$question): ?>

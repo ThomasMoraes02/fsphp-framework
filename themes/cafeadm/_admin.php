@@ -90,7 +90,7 @@
         </div>
 
         <div class="dash_content_box">
-            <?= $v->section("content"); ?>
+            <?= $this->section("content"); ?>
         </div>
     </section>
 </div>
@@ -101,7 +101,7 @@
 <script src="<?= url("/shared/scripts/jquery.mask.js"); ?>"></script>
 <script src="<?= url("/shared/scripts/tinymce/tinymce.min.js"); ?>"></script>
 <script src="<?= theme("/assets/js/scripts.js", CONF_VIEW_ADMIN); ?>"></script>
-<?= $v->section("scripts"); ?>
+<?= $this->section("scripts"); ?>
 
 </body>
 </html>
