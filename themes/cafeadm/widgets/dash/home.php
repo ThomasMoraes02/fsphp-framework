@@ -12,7 +12,7 @@
                 <h4 class="icon-coffee">Control</h4>
                 <p><b>Assinantes:</b> <?= $control->subscribers; ?></p>
                 <p><b>Planos:</b> <?= $control->plans; ?></p>
-                <p><b>Recorrencia:</b> R$ <?= str_price($control->recurrency); ?></p>
+                <p><b>Recorrencia:</b> R$ <?= str_price($control->recurrence); ?></p>
             </article>
 
             <article class="blog radius">
