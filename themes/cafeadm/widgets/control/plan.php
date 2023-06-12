@@ -1,5 +1,5 @@
 <?php $this->layout("_admin"); ?>
-<?php $this->insert("widgets/control/sidebar.php"); ?>
+<?php $this->insert("widgets/control/sidebar"); ?>
 
 <section class="dash_content_app">
     <?php if (!$plan): ?>
