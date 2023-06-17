@@ -440,3 +440,16 @@ function request_repeat(string $field, string $value): bool
     $session->set($field, $value);
     return false;
 }
+
+/**
+ * Debug
+ *
+ * @param mixed ...$vars
+ * @return void
+ */
+function dd(...$vars)
+{
+    echo "<pre>";
+    print_r($vars);
+    echo "</pre>";
+}
