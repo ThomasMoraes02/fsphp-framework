@@ -1,5 +1,5 @@
 <?php $this->layout("_admin"); ?>
-<?php $this->insert("widgets/blog/sidebar.php"); ?>
+<?php $this->insert("widgets/blog/sidebar"); ?>
 
 <section class="dash_content_app">
     <header class="dash_content_app_header">
