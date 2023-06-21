@@ -7,7 +7,7 @@ class Post extends Model
 {
     public function __construct()
     {
-        parent::__construct("posts", ["id"], ["title", "id", "subtitle", "content"]);
+        parent::__construct("posts", ["id"], ["title", "subtitle", "content"]);
     }
 
     public function findPost(?string $terms = null, ?string $params = null, string $columns = "*")
@@ -42,5 +42,22 @@ class Post extends Model
         }
 
         return null;
+    }
+
+    /**
+     * Save post
+     *
+     * @return boolean
+     */
+    public function save(): bool
+    {
+        $checkUri = (new Post)->find("uri = :uri AND id != :id", "uri={$this->uri}&id={$this->id}");
+
+        if($checkUri->count()) {
+            $this->uri = "{$this->uri}-{$this->lastId()}";
+        }
+
+
+        return parent::save();
     }
 }

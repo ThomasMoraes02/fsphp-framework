@@ -309,6 +309,16 @@ abstract class Model
         return true;
     }
 
+    /**
+     * Returns the last inserted id
+     *
+     * @return integer
+     */
+    public function lastId(): int
+    {
+        return Connect::getInstance()->query("SELECT MAX(id) as maxId FROM {$this->entity}")->fetch()->maxId + 1;
+    }
+
 
     /**
      * @param string $terms
