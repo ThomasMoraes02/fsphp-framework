@@ -18,7 +18,7 @@
     <div class="post_page_content">
         <div class="htmlchars">
             <h2><?= $post->subtitle ?></h2>
-            <?= $post->content ?>
+            <?= html_entity_decode($post->content) ?>
 
             <aside class="social_share">
                 <h3 class="social_share_title icon-heartbeat">Ajude seus amigos a controlar:</h3>

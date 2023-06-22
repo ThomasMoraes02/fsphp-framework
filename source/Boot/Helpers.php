@@ -146,6 +146,16 @@ function str_price(?string $price): string
     return number_format((!empty($price) ? $price : 0), 2, ",", ".");
 }
 
+function str_search(?string $search): string
+{
+    if(!$search) {
+        return "all";
+    }
+
+    $search = preg_replace("/[^a-z0-9A-Z\@\ ]/", "", $search);
+    return (!empty($search) ? $search : "all");
+}
+
 /**
  * ###############
  * ###   URL   ###
