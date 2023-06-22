@@ -10,12 +10,12 @@ $(function () {
         e.preventDefault();
 
         var menu = $(".dash_sidebar");
-        menu.animate({right: 0}, 200, function (e) {
+        menu.animate({ right: 0 }, 200, function (e) {
             $("body").css("overflow", "hidden");
         });
 
         menu.one("mouseleave", function () {
-            $(this).animate({right: '-260'}, 200, function (e) {
+            $(this).animate({ right: '-260' }, 200, function (e) {
                 $("body").css("overflow", "auto");
             });
         });
@@ -23,23 +23,66 @@ $(function () {
 
     //NOTIFICATION CENTER
 
+    function notificationsCount() {
+        var center = $(".notification_center_open");
+        $.post(center.data("count"), function (response) {
+            if (response.count) {
+                center.html(response.count);
+            } else {
+                center.html("0");
+            }
+        }, "json")
+    }
+
+    notificationsCount();
+
+    setInterval(function () {
+        notificationsCount();
+    }, 1000 * 50);
+
+    function notificationHtml(link, image, notify, date) {
+        return '<div data-notificationlink=' + link + ' class="notification_center_item radius transition"><div class="image"><img class="rounded" src="' + image + '"/></div><div class="info"><p class="title">' + notify + '</p><p class="time icon-clock-o">' + date + '</p></div></div>';
+    }
+
     $(".notification_center_open").click(function (e) {
         e.preventDefault();
 
+        var notify = $(this).data("notify");
         var center = $(".notification_center");
 
-        center.css("display", "block").animate({right: 0}, 200, function (e) {
-            $("body").css("overflow", "hidden");
-        });
+        $.post(notify, function (response) {
+            console.log(notify);
+            if (response.message) {
+                ajaxMessage(response.message, ajaxResponseBaseTime);
+            }
+
+            var centerHtml = "";
+            if (response.notifications) {
+                $.each(response.notifications, function (e, notify) {
+                    centerHtml += notificationHtml(notify.link, notify.image, notify.notify, notify.created_at);
+                });
+                center.html(centerHtml);
+
+                center.css("display", "block").animate({ right: 0 }, 200, function (e) {
+                    $("body").css("overflow", "hidden");
+                });
+            }
+        }, "json");
 
         center.one("mouseleave", function () {
-            $(this).animate({right: '-320'}, 200, function (e) {
+            $(this).animate({ right: '-320' }, 200, function (e) {
                 $("body").css("overflow", "auto");
                 $(this).css("display", "none");
             });
         });
+
+        notificationsCount();
     });
 
+    $(".notification_center").on("click", "[data-notificationlink]", function () {
+        window.location.href = $(this).data("notificationlink");  
+    });
+    
     //DATA SET
 
     $("[data-post]").click(function (e) {
