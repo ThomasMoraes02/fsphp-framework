@@ -1,7 +1,7 @@
-<?php $this->layout("_admin"); ?>
-<?php $this->insert("widgets/blog/sidebar"); ?>
+<?php $v->layout("_admin"); ?>
+<?php $v->insert("widgets/blog/sidebar.php"); ?>
 
-<div class="mce_upload" style="z-index: 998">
+<div class="mce_upload" style="z-index: 997">
     <div class="mce_upload_box">
         <form class="app_form" action="<?= url("/admin/blog/post"); ?>" method="post" enctype="multipart/form-data">
             <input type="hidden" name="upload" value="true"/>
@@ -137,12 +137,12 @@
                         <span class="legend">*Categoria:</span>
                         <select name="category" required>
                             <?php foreach ($categories as $category):
-                                $categoryId = $post->category_id;
+                                $categoryId = $post->category;
                                 $select = function ($value) use ($categoryId) {
                                     return ($categoryId == $value ? "selected" : "");
                                 };
                                 ?>
-                                <option <?= $select($post->category); ?>
+                                <option <?= $select($category->id); ?>
                                         value="<?= $category->id; ?>"><?= $category->title; ?></option>
                             <?php endforeach; ?>
                         </select>
@@ -152,13 +152,13 @@
                         <span class="legend">*Autor:</span>
                         <select name="author" required>
                             <?php foreach ($authors as $author):
-                                $authorId = $author->id;
+                                $authorId = $post->author;
                                 $select = function ($value) use ($authorId) {
                                     return ($authorId == $value ? "selected" : "");
                                 };
                                 ?>
-                                <option <?= $select($post->author); ?>
-                                        value="<?= $author->id; ?>"><?= $post->author()->fullName(); ?></option>
+                                <option <?= $select($author->id); ?>
+                                        value="<?= $author->id; ?>"><?= $author->fullName(); ?></option>
                             <?php endforeach; ?>
                         </select>
                     </label>
@@ -182,8 +182,8 @@
 
                     <label class="label">
                         <span class="legend">Data de publicação:</span>
-                        <input class="mask-datetime" type="text" name="post_at" value="<?= date("d/m/Y H:i"); ?>"
-                               required/>
+                        <input class="mask-datetime" type="text" name="post_at"
+                               value="<?= date_fmt($post->post_at, "d/m/Y H:i"); ?>" required/>
                     </label>
                 </div>
 

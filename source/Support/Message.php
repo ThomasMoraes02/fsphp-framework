@@ -85,7 +85,7 @@ class Message
      */
     public function success(string $message): Message
     {
-        $this->type = "success info-check-square-o";
+        $this->type = "success icon-check-square-o";
         $this->text = $this->filter($message);
         return $this;
     }
@@ -96,7 +96,7 @@ class Message
      */
     public function warning(string $message): Message
     {
-        $this->type = "warning info-warning";
+        $this->type = "warning icon-warning";
         $this->text = $this->filter($message);
         return $this;
     }
@@ -121,14 +121,6 @@ class Message
     }
 
     /**
-     * @return string
-     */
-    public function json(): string
-    {
-        return json_encode(["error" => $this->getText()]);
-    }
-
-    /**
      * Set flash Session Key
      */
     public function flash(): void
@@ -142,6 +134,6 @@ class Message
      */
     private function filter(string $message): string
     {
-        return filter_var($message, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        return filter_var($message, FILTER_SANITIZE_STRIPPED);
     }
 }
