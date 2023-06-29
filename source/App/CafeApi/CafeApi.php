@@ -92,13 +92,13 @@ class CafeApi extends Controller
             return false;
         }
 
-        if(empty($this->headers['email']) || empty($this->headers['password'])) {
+        if(empty($this->headers['Email']) || empty($this->headers['Password'])) {
             $this->call(400, "auth_empty", "Favor informe seu e-mail e senha")->back();
             return false;
         }
 
         $auth = new Auth;
-        $user = $auth->attempt($this->headers['email'], $this->headers['password'], 1);
+        $user = $auth->attempt($this->headers['Email'], $this->headers['Password'], 1);
 
         if(!$user) {
             $this->requestLimit($endpoint[0], $endpoint[1], $endpoint[2]);
@@ -120,7 +120,7 @@ class CafeApi extends Controller
      */
     protected function requestLimit(string $endpoint, int $limit, int $seconds, bool $attempt = false): bool
     {
-        $userToken = (!empty($this->headers['email']) ? base64_encode($this->headers['email']) : null);
+        $userToken = (!empty($this->headers['Email']) ? base64_encode($this->headers['Email']) : null);
 
         if(!$userToken) {
             $this->call(400, "invalid_data", "Favor informe seu e-mail e senha")->back();
