@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "efd5ae904eba0d4d641375311a1c04b9",
+    "content-hash": "e304e81332760d4aca62f78599ea1741",
     "packages": [
         {
             "name": "coffeecode/cropper",
@@ -697,12 +697,67 @@
                 }
             ],
             "time": "2021-05-06T15:18:48+00:00"
+        },
+        {
+            "name": "thomasvmoraes/cafeapi",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ThomasMoraes02/cafeapi.git",
+                "reference": "f93a60ea3d352358f887942465d19c2c0a4410fe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ThomasMoraes02/cafeapi/zipball/f93a60ea3d352358f887942465d19c2c0a4410fe",
+                "reference": "f93a60ea3d352358f887942465d19c2c0a4410fe",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": "^8.1"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "thomasvmoraes\\CafeApi\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Thomas V. Moraes",
+                    "email": "tho.vini7@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Biblioteca API para integração com o webservice do SaaS FSPHP",
+            "homepage": "https://www.upinside.com.br",
+            "keywords": [
+                "FSPHP",
+                "Thomas V. Moraes",
+                "full stack",
+                "php",
+                "saas",
+                "upinside"
+            ],
+            "support": {
+                "issues": "https://github.com/ThomasMoraes02/cafeapi/issues",
+                "source": "https://github.com/ThomasMoraes02/cafeapi/tree/master"
+            },
+            "time": "2023-07-01T20:49:28+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "thomasvmoraes/cafeapi": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
